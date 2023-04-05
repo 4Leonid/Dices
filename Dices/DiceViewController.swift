@@ -55,6 +55,8 @@ class DiceViewController: UIViewController {
     element.tintColor = .white
     element.setTitle("Roll", for: .normal)
     element.backgroundColor = #colorLiteral(red: 0.6068438888, green: 0.1102350578, blue: 0.1197155192, alpha: 1)
+    element.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+    element.addTarget(self, action: #selector(dropDices), for: .touchUpInside)
     return element
   }()
 
@@ -62,6 +64,11 @@ class DiceViewController: UIViewController {
     super.viewDidLoad()
     addViews()
     setConstraints()
+  }
+  
+  @objc private func dropDices() {
+    diceOne.image = dices.randomElement()
+    diceTwo.image = dices.randomElement()
   }
 }
 
@@ -96,8 +103,9 @@ extension DiceViewController {
     
     rollDice.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.bottom.equalToSuperview().inset(120)
-      make.width.equalTo(diceOne.snp.width).dividedBy(2)
+      make.bottom.equalToSuperview().inset(160)
+      make.width.equalTo(diceOne.snp.width)
+      make.height.equalTo(diceOne.snp.height).dividedBy(2)
     }
   }
 }
